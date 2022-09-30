@@ -33,7 +33,7 @@ class PixelImageView : AppCompatImageView {
     private val _matrix = mutableListOf<MutableList<Int>>()
     val matrix: List<List<Int>> = _matrix
 
-    private var eraserMode = false
+    var mode: Mode = Mode.None
 
     private var strokeColor: Int = R.color.white
     private var selectedColor: Int = R.color.color_selected
@@ -102,6 +102,7 @@ class PixelImageView : AppCompatImageView {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (mode == Mode.None) return false
         if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_MOVE) {
             var i = 0
             var iFound = false
@@ -110,8 +111,8 @@ class PixelImageView : AppCompatImageView {
                 var jFound = false
                 while (j < pixels[i].size && !jFound) {
                     if ((event.x >= pixels[i][j].left && event.x <= pixels[i][j].right) && (event.y >= pixels[i][j].top && event.y <= pixels[i][j].bottom)) {
-                        pixels[i][j].isSelected = !eraserMode
-                        _matrix[i][j] = if (eraserMode) 0 else 1
+                        pixels[i][j].isSelected = mode == Mode.Selection
+                        _matrix[i][j] = if (mode == Mode.Selection) 1 else 0
                         invalidate()
                         jFound = true
                         iFound = true
@@ -130,10 +131,6 @@ class PixelImageView : AppCompatImageView {
         invalidate()
     }
 
-    fun eraserMode(state: Boolean) {
-        eraserMode = state
-    }
-
     companion object {
         private fun optColor(
             typedArray: TypedArray?,
@@ -142,5 +139,9 @@ class PixelImageView : AppCompatImageView {
         ): Int {
             return typedArray?.getColor(index, def) ?: def
         }
+    }
+
+    enum class Mode {
+        None, Selection, Erase
     }
 }

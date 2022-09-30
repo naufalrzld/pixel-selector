@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.image.selector.databinding.ActivityMainBinding
+import com.telkom.library.PixelImageView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    private var eraserMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +21,31 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getDrawable(this, R.drawable.sample)
         ).into(binding.ivImage)
 
+        binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+
+        binding.btnSelect.setOnClickListener {
+            val mode = if (binding.ivImage.mode == PixelImageView.Mode.None ||
+                binding.ivImage.mode == PixelImageView.Mode.Erase
+            ) PixelImageView.Mode.Selection else PixelImageView.Mode.None
+            binding.ivImage.mode = mode
+            binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+        }
+
+        binding.btnErase.setOnClickListener {
+            val mode = if (binding.ivImage.mode == PixelImageView.Mode.None ||
+                binding.ivImage.mode == PixelImageView.Mode.Selection
+            ) PixelImageView.Mode.Erase else PixelImageView.Mode.None
+            binding.ivImage.mode = mode
+            binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+        }
+
         binding.btnClear.setOnClickListener {
             binding.ivImage.clearSelector()
         }
 
-        binding.btnErase.setOnClickListener {
-            eraserMode = !eraserMode
-            binding.ivImage.eraserMode(eraserMode)
-        }
-
         binding.btnGetMatrix.setOnClickListener {
             val matrix = binding.ivImage.matrix
-            Log.d("NOPAL", "$matrix")
+            Log.d("MATRIX", "$matrix")
         }
     }
 }
