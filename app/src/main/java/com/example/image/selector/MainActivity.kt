@@ -1,7 +1,9 @@
 package com.example.image.selector
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -16,6 +18,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (requestedOrientation != -1) {
+            val attr = window.attributes
+            if (requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT) {
+                supportActionBar?.show()
+                attr.flags = attr.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+            } else {
+                supportActionBar?.hide()
+                attr.flags = attr.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN
+            }
+            window.attributes = attr
+        }
 
         Glide.with(this).load(
             ContextCompat.getDrawable(this, R.drawable.sample)
