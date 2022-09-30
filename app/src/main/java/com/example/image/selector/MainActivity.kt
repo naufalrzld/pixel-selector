@@ -1,9 +1,7 @@
 package com.example.image.selector
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -19,46 +17,34 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (requestedOrientation != -1) {
-            val attr = window.attributes
-            if (requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT) {
-                supportActionBar?.show()
-                attr.flags = attr.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
-            } else {
-                supportActionBar?.hide()
-                attr.flags = attr.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN
-            }
-            window.attributes = attr
-        }
-
         Glide.with(this).load(
             ContextCompat.getDrawable(this, R.drawable.sample)
-        ).into(binding.ivImage)
+        ).into(binding.pivImage)
 
-        binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+        binding.tvMode.text = "Mode: ${binding.pivImage.mode}"
 
         binding.btnSelect.setOnClickListener {
-            val mode = if (binding.ivImage.mode == PixelImageView.Mode.None ||
-                binding.ivImage.mode == PixelImageView.Mode.Erase
+            val mode = if (binding.pivImage.mode == PixelImageView.Mode.None ||
+                binding.pivImage.mode == PixelImageView.Mode.Erase
             ) PixelImageView.Mode.Selection else PixelImageView.Mode.None
-            binding.ivImage.mode = mode
-            binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+            binding.pivImage.mode = mode
+            binding.tvMode.text = "Mode: ${binding.pivImage.mode}"
         }
 
         binding.btnErase.setOnClickListener {
-            val mode = if (binding.ivImage.mode == PixelImageView.Mode.None ||
-                binding.ivImage.mode == PixelImageView.Mode.Selection
+            val mode = if (binding.pivImage.mode == PixelImageView.Mode.None ||
+                binding.pivImage.mode == PixelImageView.Mode.Selection
             ) PixelImageView.Mode.Erase else PixelImageView.Mode.None
-            binding.ivImage.mode = mode
-            binding.tvMode.text = "Mode: ${binding.ivImage.mode}"
+            binding.pivImage.mode = mode
+            binding.tvMode.text = "Mode: ${binding.pivImage.mode}"
         }
 
         binding.btnClear.setOnClickListener {
-            binding.ivImage.clearSelector()
+            binding.pivImage.clearSelector()
         }
 
         binding.btnGetMatrix.setOnClickListener {
-            val matrix = binding.ivImage.matrix
+            val matrix = binding.pivImage.matrix
             Log.d("MATRIX", "$matrix")
         }
     }
