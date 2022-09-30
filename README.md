@@ -36,19 +36,19 @@ MainActivity.kt:
 val piv = findViewById<PixelImageView>(R.id.piv_image)
 
 // Default mode
-piv.mode == PixelImageView.Mode.None
+piv.mode = PixelImageView.Mode.None
 
 // Activate selection mode
-piv.mode == PixelImageView.Mode.Selection
+piv.mode = PixelImageView.Mode.Selection
 
 // Activate erase mode
-piv.mode == PixelImageView.Mode.Erase
+piv.mode = PixelImageView.Mode.Erase
 
 // Clear all selector
 piv.clearSelector()
 
 // Get selection matrix
-val matrix = binding.pivImage.matrix
+val matrix = piv.matrix
 ```
 
 Example of Matrix:
@@ -70,4 +70,4 @@ Example of Matrix:
 ```
 
 Sample App:<br>
-https://user-images.githubusercontent.com/27726885/193215133-83277052-360b-4e4d-a9de-5a1c6192c52f.mp4
+![](https://user-images.githubusercontent.com/27726885/193215133-83277052-360b-4e4d-a9de-5a1c6192c52f.mp4)
