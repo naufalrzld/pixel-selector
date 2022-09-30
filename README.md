@@ -11,6 +11,7 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 ...
+
 dependencies {
     implementation 'com.github.naufalrzld:pixel-selector:1.0.1'
 }
@@ -67,3 +68,6 @@ Example of Matrix:
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 ```
+
+Sample App:
+https://user-images.githubusercontent.com/27726885/193215133-83277052-360b-4e4d-a9de-5a1c6192c52f.mp4
