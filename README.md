@@ -70,4 +70,6 @@ Example of Matrix:
 ```
 
 Sample App:<br>
-![](https://user-images.githubusercontent.com/27726885/193215133-83277052-360b-4e4d-a9de-5a1c6192c52f.mp4)
+
+https://user-images.githubusercontent.com/27726885/193215133-83277052-360b-4e4d-a9de-5a1c6192c52f.mp4
+
