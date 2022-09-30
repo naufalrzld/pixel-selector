@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PixelImageView">
+        <attr name="piv_stroke_color" format="reference|color" />
+        <attr name="piv_selected_color" format="reference|color" />
+    </declare-styleable>
+</resources>
